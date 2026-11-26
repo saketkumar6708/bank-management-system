@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SecureBank - Banking Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #123c69;
+            color: white;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #4fc3f7;
+        }
+
+        .nav-text {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            color: #123c69;
+        }
+
+        .welcome p {
+            margin-top: 8px;
+            color: #777;
+        }
+
+
+        /* ================= LOGIN ================= */
+
+        .login-box {
+            background: white;
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 35px;
+            border-radius: 15px;
+
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .login-box h1 {
+            text-align: center;
+            color: #123c69;
+            margin-bottom: 10px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        button {
+            border: none;
+            border-radius: 8px;
+
+            padding: 12px 18px;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            background: #1976d2;
+            color: white;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .deposit-btn {
+            background: #2e9d55;
+        }
+
+        .withdraw-btn {
+            background: #d9534f;
+        }
+
+        .history-btn {
+            background: #6f42c1;
+        }
+
+        .loan-btn {
+            background: #ef9b20;
+        }
+
+
+        /* ================= DASHBOARD ================= */
+
+        #dashboard {
+            display: none;
+        }
+
+
+        /* ================= BALANCE CARD ================= */
+
+        .balance-card {
+            background: linear-gradient(135deg, #123c69, #1976d2);
+            color: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+
+            margin-bottom: 25px;
+        }
+
+        .balance-title {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .balance {
+            font-size: 38px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .account-number {
+            opacity: 0.85;
+        }
+
+
+        /* ================= CARDS ================= */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+
+        /* ================= DETAILS ================= */
+
+        .details {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+
+            margin-bottom: 25px;
+        }
+
+        .details h2 {
+            color: #123c69;
+            margin-bottom: 20px;
+        }
+
+        .detail-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: #f7f9fc;
+
+            padding: 15px;
+
+            border-radius: 8px;
+        }
+
+        .detail-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .detail-item span {
+            color: #666;
+        }
+
+
+        /* ================= OPERATIONS ================= */
+
+        .operation-box {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+
+            margin-bottom: 25px;
+        }
+
+        .operation-box h2 {
+            color: #123c69;
+            margin-bottom: 15px;
+        }
+
+        .operation-box button {
+            margin-top: 10px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #f5f5f5;
+
+            white-space: pre-wrap;
+        }
+
+
+        /* ================= TABLE ================= */
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+
+            border-bottom: 1px solid #ddd;
+
+            text-align: center;
+        }
+
+        th {
+            background: #123c69;
+            color: white;
+        }
+
+
+        /* ================= LOGOUT ================= */
+
+        .logout {
+            background: #d9534f;
+
+            float: right;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #888;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 750px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .balance {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+    <div class="logo">
+        🏦 Secure<span>Bank</span>
+    </div>
+
+    <div class="nav-text">
+        Online Banking
+    </div>
+
+</div>
+
+
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginSection">
+
+    <div class="login-box">
+
+        <h1>Welcome Back 👋</h1>
+
+        <p>Login to access your bank account</p>
+
+
+        <label>
+            Account Number
+        </label>
+
+        <input
+            type="number"
+            id="account_no"
+            placeholder="Enter account number"
+        >
+
+
+        <label>
+            PIN
+        </label>
+
+        <input
+            type="password"
+            id="pin"
+            placeholder="Enter PIN"
+        >
+
+
+        <button
+            class="login-btn"
+            onclick="login()"
+        >
+            🔐 Login
+        </button>
+
+
+        <div
+            id="result"
+            class="result"
+        ></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div
+    id="dashboard"
+    class="container"
+>
+
+
+    <div class="welcome">
+
+        <h1 id="welcomeName">
+            Welcome!
+        </h1>
+
+        <p>
+            Manage your account securely from your dashboard.
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= BALANCE ================= -->
+
+    <div class="balance-card">
+
+        <div class="balance-title">
+            Available Balance
+        </div>
+
+        <div
+            class="balance"
+            id="balance"
+        >
+            ₹0
+        </div>
+
+        <div
+            class="account-number"
+            id="accountDisplay"
+        >
+            Account: -
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <div class="cards">
+
+
+        <!-- DEPOSIT -->
+
+        <div class="card">
+
+            <h3>💰 Deposit</h3>
+
+            <p>
+                Add money to your account.
+            </p>
+
+            <input
+                type="number"
+                id="depositAmount"
+                placeholder="Enter amount"
+            >
+
+            <button
+                class="deposit-btn"
+                onclick="deposit()"
+            >
+                Deposit Money
+            </button>
+
+            <div
+                id="depositResult"
+                class="result"
+            ></div>
+
+        </div>
+
+
+
+        <!-- WITHDRAW -->
+
+        <div class="card">
+
+            <h3>💸 Withdraw</h3>
+
+            <p>
+                Withdraw money from your account.
+            </p>
+
+            <input
+                type="number"
+                id="withdrawAmount"
+                placeholder="Enter amount"
+            >
+
+            <button
+                class="withdraw-btn"
+                onclick="withdraw()"
+            >
+                Withdraw Money
+            </button>
+
+            <div
+                id="withdrawResult"
+                class="result"
+            ></div>
+
+        </div>
+
+
+
+        <!-- TRANSACTIONS -->
+
+        <div class="card">
+
+            <h3>📜 Transactions</h3>
+
+            <p>
+                View your transaction history.
+            </p>
+
+            <button
+                class="history-btn"
+                onclick="getTransactions()"
+            >
+                View History
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= ACCOUNT DETAILS ================= -->
+
+    <div class="details">
+
+        <h2>
+            👤 Account Details
+        </h2>
+
+
+        <div class="detail-grid">
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Customer Name
+                </strong>
+
+                <span id="customerName">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Account Number
+                </strong>
+
+                <span id="accountNumber">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Account Type
+                </strong>
+
+                <span id="accountType">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Phone
+                </strong>
+
+                <span id="phone">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Email
+                </strong>
+
+                <span id="email">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Branch
+                </strong>
+
+                <span id="branch">
+                    -
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= TRANSACTION HISTORY ================= -->
+
+    <div class="operation-box">
+
+        <h2>
+            📜 Transaction History
+        </h2>
+
+        <div id="transactionResult">
+
+            Click "View History" above to see your transactions.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= LOANS ================= -->
+
+    <div class="operation-box">
+
+        <h2>
+            🏦 Loans
+        </h2>
+
+        <button
+            class="loan-btn"
+            onclick="getLoans()"
+        >
+            View My Loans
+        </button>
+
+        <div
+            id="loanResult"
+            class="result"
+        ></div>
+
+    </div>
+
+
+
+    <!-- ================= LOGOUT ================= -->
+
+    <button
+        class="logout"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+
+</div>
+
+
+
+<footer>
+
+    SecureBank © 2026 | Bank Management System
+
+</footer>
+
+
+
+<script>
+
+
+// =====================================================
+// API URL
+// =====================================================
+
+const API = "http://localhost:5000";
+
+
+// Currently logged-in account
+
+let loggedInAccount = "";
+
+
+// =====================================================
+// LOGIN
+// =====================================================
+
+async function login() {
+
+    const account_no =
+        document.getElementById("account_no").value;
+
+    const pin =
+        document.getElementById("pin").value;
+
+
+    if (!account_no || !pin) {
+
+        document.getElementById("result").innerText =
+            "Please enter account number and PIN.";
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            API + "/api/login",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    account_no: account_no,
+
+                    pin: pin
+
+                })
+
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            document.getElementById("result").innerText =
+                "❌ " + data.message;
+
+            return;
+        }
+
+
+        // Save account number
+
+        loggedInAccount =
+            data.account_no;
+
+
+        // Hide login
+
+        document.getElementById("loginSection")
+            .style.display = "none";
+
+
+        // Show dashboard
+
+        document.getElementById("dashboard")
+            .style.display = "block";
+
+
+        // Show user information
+
+        document.getElementById("welcomeName")
+            .innerText =
+            "Welcome, " + data.name + " 👋";
+
+
+        document.getElementById("balance")
+            .innerText =
+            "₹" + Number(data.balance).toLocaleString("en-IN");
+
+
+        document.getElementById("accountDisplay")
+            .innerText =
+            "Account: •••• " +
+            String(data.account_no).slice(-4);
+
+
+        document.getElementById("customerName")
+            .innerText =
+            data.name;
+
+
+        document.getElementById("accountNumber")
+            .innerText =
+            data.account_no;
+
+
+        document.getElementById("accountType")
+            .innerText =
+            data.account_type;
+
+
+        document.getElementById("phone")
+            .innerText =
+            data.phone;
+
+
+        document.getElementById("email")
+            .innerText =
+            data.email;
+
+
+        // Get branch details
+
+        getAccount();
+
+    }
+
+
+    catch (error) {
+
+        document.getElementById("result").innerText =
+            "❌ Server Error: " + error.message;
+
+    }
+
+}
+
+
+
+// =====================================================
+// GET ACCOUNT DETAILS
+// =====================================================
+
+async function getAccount() {
+
+    try {
+
+        const response = await fetch(
+            API + "/api/account/" + loggedInAccount
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            return;
+        }
+
+
+        document.getElementById("balance")
+            .innerText =
+            "₹" +
+            Number(data.balance)
+                .toLocaleString("en-IN");
+
+
+        document.getElementById("branch")
+            .innerText =
+            data.branch_name +
+            ", " +
+            data.city;
+
+    }
+
+
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+
+
+// =====================================================
+// DEPOSIT
+// =====================================================
+
+async function deposit() {
+
+    const amount =
+        document.getElementById("depositAmount").value;
+
+
+    if (!amount || Number(amount) <= 0) {
+
+        document.getElementById("depositResult")
+            .innerText =
+            "Please enter a valid amount.";
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            API + "/api/deposit",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    account_no: loggedInAccount,
+
+                    amount: amount
+
+                })
+
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById("depositResult")
+            .innerText =
+            data.message;
+
+
+        if (response.ok) {
+
+            document.getElementById("depositAmount")
+                .value = "";
+
+
+            // Refresh balance
+
+            getAccount();
+
+        }
+
+    }
+
+
+    catch (error) {
+
+        document.getElementById("depositResult")
+            .innerText =
+            "Server Error: " + error.message;
+
+    }
+
+}
+
+
+
+// =====================================================
+// WITHDRAW
+// =====================================================
+
+async function withdraw() {
+
+    const amount =
+        document.getElementById("withdrawAmount").value;
+
+
+    if (!amount || Number(amount) <= 0) {
+
+        document.getElementById("withdrawResult")
+            .innerText =
+            "Please enter a valid amount.";
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            API + "/api/withdraw",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    account_no: loggedInAccount,
+
+                    amount: amount
+
+                })
+
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById("withdrawResult")
+            .innerText =
+            data.message;
+
+
+        if (response.ok) {
+
+            document.getElementById("withdrawAmount")
+                .value = "";
+
+
+            // Refresh balance
+
+            getAccount();
+
+        }
+
+    }
+
+
+    catch (error) {
+
+        document.getElementById("withdrawResult")
+            .innerText =
+            "Server Error: " + error.message;
+
+    }
+
+}
+
+
+
+// =====================================================
+// TRANSACTIONS
+// =====================================================
+
+async function getTransactions() {
+
+    try {
+
+        const response = await fetch(
+            API + "/api/transactions/" +
+            loggedInAccount
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            document.getElementById("transactionResult")
+                .innerText =
+                data.message;
+
+            return;
+        }
+
+
+        if (data.length === 0) {
+
+            document.getElementById("transactionResult")
+                .innerText =
+                "No transactions found.";
+
+            return;
+        }
+
+
+        let html = `
+
+            <table>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Type</th>
+
+                    <th>Amount</th>
+
+                    <th>Date</th>
+
+                </tr>
+
+        `;
+
+
+        data.forEach(transaction => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${transaction.transaction_id}
+                    </td>
+
+                    <td>
+                        ${transaction.transaction_type}
+                    </td>
+
+                    <td>
+                        ₹${transaction.amount}
+                    </td>
+
+                    <td>
+                        ${transaction.transaction_date}
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+        html += "</table>";
+
+
+        document.getElementById("transactionResult")
+            .innerHTML =
+            html;
+
+    }
+
+
+    catch (error) {
+
+        document.getElementById("transactionResult")
+            .innerText =
+            "Server Error: " + error.message;
+
+    }
+
+}
+
+
+
+// =====================================================
+// LOANS
+// =====================================================
+
+async function getLoans() {
+
+    try {
+
+        // First get customer ID
+
+        const accountResponse =
+            await fetch(
+                API + "/api/account/" +
+                loggedInAccount
+            );
+
+
+        const accountData =
+            await accountResponse.json();
+
+
+        if (!accountResponse.ok) {
+
+            return;
+        }
+
+
+        const customerId =
+            accountData.customer_id;
+
+
+        // Get loans
+
+        const response =
+            await fetch(
+                API + "/api/loans/" +
+                customerId
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            document.getElementById("loanResult")
+                .innerText =
+                data.message;
+
+            return;
+        }
+
+
+        if (data.length === 0) {
+
+            document.getElementById("loanResult")
+                .innerText =
+                "No loans found.";
+
+            return;
+        }
+
+
+        let html = `
+
+            <table>
+
+                <tr>
+
+                    <th>Loan ID</th>
+
+                    <th>Type</th>
+
+                    <th>Amount</th>
+
+                    <th>Interest</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+        `;
+
+
+        data.forEach(loan => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${loan.loan_id}
+                    </td>
+
+                    <td>
+                        ${loan.loan_type}
+                    </td>
+
+                    <td>
+                        ₹${loan.amount}
+                    </td>
+
+                    <td>
+                        ${loan.interest_rate}%
+                    </td>
+
+                    <td>
+                        ${loan.loan_status}
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+        html += "</table>";
+
+
+        document.getElementById("loanResult")
+            .innerHTML =
+            html;
+
+    }
+
+
+    catch (error) {
+
+        document.getElementById("loanResult")
+            .innerText =
+            "Server Error: " + error.message;
+
+    }
+
+}
+
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function logout() {
+
+    loggedInAccount = "";
+
+    document.getElementById("dashboard")
+        .style.display = "none";
+
+    document.getElementById("loginSection")
+        .style.display = "block";
+
+    document.getElementById("account_no")
+        .value = "";
+
+    document.getElementById("pin")
+        .value = "";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

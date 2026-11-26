@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginPage" class="page">
+    <div class="login-box">
+        <h1>Bank Management System</h1>
+        <p class="subtitle">Secure Customer Login</p>
+
+        <input id="loginAccount" type="number" placeholder="Account Number">
+        <input id="loginPin" type="password" placeholder="PIN">
+
+        <button onclick="login()">Login</button>
+
+        <p id="loginMessage" class="message"></p>
+
+        <div class="demo">
+            <strong>Demo accounts</strong><br>
+            Account: 10001 | PIN: 1234<br>
+            Account: 10002 | PIN: 2345
+        </div>
+    </div>
+</div>
+
+<div id="dashboardPage" class="hidden">
+
+    <nav>
+        <div class="brand">MyBank</div>
+        <button class="logout" onclick="logout()">Logout</button>
+    </nav>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h1>Welcome, <span id="customerName"></span></h1>
+            <p>Manage your bank account from one place.</p>
+        </section>
+
+        <section class="cards">
+            <div class="card">
+                <h3>Account Number</h3>
+                <p id="accountNumber">-</p>
+            </div>
+
+            <div class="card">
+                <h3>Account Type</h3>
+                <p id="accountType">-</p>
+            </div>
+
+            <div class="card balance-card">
+                <h3>Current Balance</h3>
+                <p>₹<span id="balance">0.00</span></p>
+            </div>
+
+            <div class="card">
+                <h3>Branch</h3>
+                <p id="branch">-</p>
+            </div>
+        </section>
+
+        <section class="actions">
+
+            <div class="action-box">
+                <h2>Deposit Money</h2>
+                <input id="depositAmount" type="number" min="1" placeholder="Enter amount">
+                <button onclick="deposit()">Deposit</button>
+            </div>
+
+            <div class="action-box">
+                <h2>Withdraw Money</h2>
+                <input id="withdrawAmount" type="number" min="1" placeholder="Enter amount">
+                <button onclick="withdraw()">Withdraw</button>
+            </div>
+
+        </section>
+
+        <p id="actionMessage" class="message"></p>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Transaction History</h2>
+                <button onclick="loadTransactions()">Refresh</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Loan Details</h2>
+                <button onclick="loadLoans()">Refresh</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loanBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
